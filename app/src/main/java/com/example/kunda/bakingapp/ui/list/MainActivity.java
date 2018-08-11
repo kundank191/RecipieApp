@@ -3,6 +3,8 @@ package com.example.kunda.bakingapp.ui.list;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
@@ -16,13 +18,21 @@ import org.json.JSONArray;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity implements OnDataReceivedListener{
+
+    @BindView(R.id.recipeList_rv)
+    RecyclerView mRecyclerView;
+    RecipeAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ButterKnife.bind(this);
         requestData();
     }
 
@@ -33,6 +43,12 @@ public class MainActivity extends AppCompatActivity implements OnDataReceivedLis
         NetworkUtils.getRecipeData(this);
     }
 
+    private void populateUI(List<RecipeResponse> recipeResponseList){
+        mAdapter = new RecipeAdapter(this,recipeResponseList);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
     public void clicked(View view){
         startActivity(new Intent(this, StepListActivity.class));
     }
@@ -41,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements OnDataReceivedLis
     public void onResponse(JSONArray response) {
         List<RecipeResponse> listRecipe = JSONUtils.getRecipeListFromJSON(response);
         Log.d("List Recipe",listRecipe.get(0).getName());
+
+        populateUI(listRecipe);
     }
 
     @Override
