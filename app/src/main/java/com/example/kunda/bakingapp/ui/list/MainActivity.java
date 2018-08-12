@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.constraint.Group;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.kunda.bakingapp.R;
 import com.example.kunda.bakingapp.data.RecipeResponse;
 import com.example.kunda.bakingapp.ui.RecipeViewModel;
@@ -36,6 +38,10 @@ public class MainActivity extends AppCompatActivity implements OnDataReceivedLis
     RecyclerView mRecyclerView;
     @BindView(R.id.progress_view)
     Group mProgressView;
+    @BindView(R.id.retry_button)
+    FloatingActionButton mRetryButton;
+    @BindView(R.id.lottie_view)
+    LottieAnimationView mLottieView;
     RecipeAdapter mAdapter;
     private RecipeViewModel mViewModel;
     private ViewModelFactory mFactory;
@@ -44,8 +50,8 @@ public class MainActivity extends AppCompatActivity implements OnDataReceivedLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        ButterKnife.bind(this);
+        //Initialize views
+        init();
 
         //Setting up viewModelFactory and recipeViewModel
         mFactory = new ViewModelFactory();
@@ -56,6 +62,19 @@ public class MainActivity extends AppCompatActivity implements OnDataReceivedLis
         } else {
             requestData();
         }
+    }
+
+    public void init(){
+        ButterKnife.bind(this);
+        //It enables user to fetch data when something has went wrong like network error
+        mRetryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //when user clicks on fab then it will rotate 360 degree clockwise as a touch feedback
+                mRetryButton.animate().rotationBy(-360).setDuration(1000).start();
+                requestData();
+            }
+        });
     }
 
     /**
@@ -76,11 +95,11 @@ public class MainActivity extends AppCompatActivity implements OnDataReceivedLis
         mProgressView.setVisibility(View.GONE);
         mErrorView.setVisibility(View.GONE);
         mNoInternetView.setVisibility(View.GONE);
+        mRetryButton.setVisibility(View.GONE);
         mRecyclerView.setVisibility(View.VISIBLE);
 
         mAdapter = new RecipeAdapter(this, recipeResponseList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setVerticalFadingEdgeEnabled(true);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -127,8 +146,9 @@ public class MainActivity extends AppCompatActivity implements OnDataReceivedLis
     private void showErrorUI() {
         mRecyclerView.setVisibility(View.GONE);
         mProgressView.setVisibility(View.GONE);
-        mErrorView.setVisibility(View.VISIBLE);
         mNoInternetView.setVisibility(View.GONE);
+        mErrorView.setVisibility(View.VISIBLE);
+        mRetryButton.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -137,8 +157,10 @@ public class MainActivity extends AppCompatActivity implements OnDataReceivedLis
     private void showLoadingScreen() {
         mRecyclerView.setVisibility(View.GONE);
         mProgressView.setVisibility(View.VISIBLE);
+        mLottieView.resumeAnimation();
         mErrorView.setVisibility(View.GONE);
         mNoInternetView.setVisibility(View.GONE);
+        mRetryButton.setVisibility(View.GONE);
     }
 
     /**
@@ -148,6 +170,7 @@ public class MainActivity extends AppCompatActivity implements OnDataReceivedLis
         mRecyclerView.setVisibility(View.GONE);
         mProgressView.setVisibility(View.GONE);
         mErrorView.setVisibility(View.GONE);
+        mRetryButton.setVisibility(View.VISIBLE);
         mNoInternetView.setVisibility(View.VISIBLE);
     }
 }
