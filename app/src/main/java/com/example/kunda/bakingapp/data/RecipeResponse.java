@@ -1,11 +1,13 @@
 package com.example.kunda.bakingapp.data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Kundan on 07-08-2018.
+ * Recipe Response POJO for the data we get from internet
  */
-public class RecipeResponse {
+public class RecipeResponse implements Serializable{
 
     private int id;
 
@@ -67,7 +69,7 @@ public class RecipeResponse {
         this.image = image;
     }
 
-    public class Ingredient {
+    public class Ingredient implements Serializable{
         private double quantity;
 
         public double getQuantity() {
@@ -99,7 +101,7 @@ public class RecipeResponse {
         }
     }
 
-    public class Step {
+    public class Step implements Serializable{
         private int id;
 
         public int getId() {

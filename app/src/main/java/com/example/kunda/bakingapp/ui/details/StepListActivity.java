@@ -1,22 +1,19 @@
 package com.example.kunda.bakingapp.ui.details;
 
-import android.content.Context;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.kunda.bakingapp.R;
-
-import com.example.kunda.bakingapp.ui.details.dummy.DummyContent;
+import com.example.kunda.bakingapp.data.RecipeResponse;
+import com.example.kunda.bakingapp.ui.RecipeViewModel;
+import com.example.kunda.bakingapp.ui.ViewModelFactory;
 
 import java.util.List;
 
@@ -28,13 +25,19 @@ import java.util.List;
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-public class StepListActivity extends AppCompatActivity {
+public class StepListActivity extends AppCompatActivity implements DetailsItemClickListener{
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
     private boolean mTwoPane;
+    public static String RECIPE_KEY = "getThatRecipe";
+    private RecipeResponse mRecipe;
+    private ViewModelFactory mFactory;
+    private RecipeViewModel mViewModel;
+    RecipeViewModel.RecipeDetails mDetailsViewModel;
+    private List<RecipeResponse.Step> mListSteps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +48,12 @@ public class StepListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        Intent intent = getIntent();
+        mRecipe = (RecipeResponse) intent.getSerializableExtra(RECIPE_KEY);
+
+        mFactory = new ViewModelFactory();
+        mViewModel = ViewModelProviders.of(this,mFactory).get(RecipeViewModel.class);
+        mDetailsViewModel = mViewModel.getRecipeDetailsViewModel(mRecipe);
 
         if (findViewById(R.id.step_detail_container) != null) {
             // The detail container view will be present only in the
@@ -68,75 +69,28 @@ public class StepListActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, DummyContent.ITEMS, mTwoPane));
+        recyclerView.setAdapter(new DetailsAdapter(this, mDetailsViewModel.getRecipeSteps(), mTwoPane));
     }
 
-    public static class SimpleItemRecyclerViewAdapter
-            extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
-
-        private final ItemListActivity mParentActivity;
-        private final List<DummyContent.DummyItem> mValues;
-        private final boolean mTwoPane;
-        private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DummyContent.DummyItem item = (DummyContent.DummyItem) view.getTag();
-                if (mTwoPane) {
-                    Bundle arguments = new Bundle();
-                    arguments.putString(StepDetailFragment.ARG_ITEM_ID, item.id);
-                    StepDetailFragment fragment = new StepDetailFragment();
-                    fragment.setArguments(arguments);
-                    mParentActivity.getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.step_detail_container, fragment)
-                            .commit();
-                } else {
-                    Context context = view.getContext();
-                    Intent intent = new Intent(context, StepDetailActivity.class);
-                    intent.putExtra(StepDetailFragment.ARG_ITEM_ID, item.id);
-
-                    context.startActivity(intent);
-                }
-            }
-        };
-
-        SimpleItemRecyclerViewAdapter(StepListActivity parent,
-                                      List<DummyContent.DummyItem> items,
-                                      boolean twoPane) {
-            mValues = items;
-            mParentActivity = parent;
-            mTwoPane = twoPane;
-        }
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.step_list_content, parent, false);
-            return new ViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.mIdView.setText(mValues.get(position).id);
-            holder.mContentView.setText(mValues.get(position).content);
-
-            holder.itemView.setTag(mValues.get(position));
-            holder.itemView.setOnClickListener(mOnClickListener);
-        }
-
-        @Override
-        public int getItemCount() {
-            return mValues.size();
-        }
-
-        class ViewHolder extends RecyclerView.ViewHolder {
-            final TextView mIdView;
-            final TextView mContentView;
-
-            ViewHolder(View view) {
-                super(view);
-                mIdView = (TextView) view.findViewById(R.id.id_text);
-                mContentView = (TextView) view.findViewById(R.id.content);
-            }
+    /**
+     * This method will be triggered when a recycler view item will be clicked
+     * @param position of the item which was clicked
+     */
+    @Override
+    public void onItemClick(int position) {
+        Toast.makeText(this,"Position : " + position,Toast.LENGTH_LONG).show();
+        if (mTwoPane) {
+            Bundle arguments = new Bundle();
+            arguments.putSerializable(StepDetailFragment.ARG_STEP_INFO,mDetailsViewModel.getRecipeSteps().get(position));
+            StepDetailFragment fragment = new StepDetailFragment();
+            fragment.setArguments(arguments);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.step_detail_container, fragment)
+                    .commit();
+        } else {
+            Intent intent = new Intent(getBaseContext(), StepDetailActivity.class);
+            intent.putExtra(StepDetailFragment.ARG_STEP_INFO,mDetailsViewModel.getRecipeSteps().get(position));
+            this.startActivity(intent);
         }
     }
 }
