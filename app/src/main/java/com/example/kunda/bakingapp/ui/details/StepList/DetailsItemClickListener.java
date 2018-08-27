@@ -1,4 +1,4 @@
-package com.example.kunda.bakingapp.ui.details;
+package com.example.kunda.bakingapp.ui.details.StepList;
 
 /**
  * Created by Kundan on 13-08-2018.

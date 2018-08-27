@@ -1,4 +1,4 @@
-package com.example.kunda.bakingapp.ui.details;
+package com.example.kunda.bakingapp.ui.details.StepList;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
