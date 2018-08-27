@@ -3,12 +3,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:foreground="?attr/selectableItemBackgroundBorderless"
+    android:clickable="true"
+    android:focusable="true"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:id="@+id/list_item_recipe">
 
     <View
-        android:layout_width="0dp"
-        android:layout_height="360dp"
+        android:layout_width="@dimen/recipe_image_width"
+        android:layout_height="@dimen/recipe_image_height"
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,8 +25,8 @@
     <!-- Content description will be set dynamically -->
     <ImageView
         android:id="@+id/recipe_image_iv"
-        android:layout_width="0dp"
-        android:layout_height="360dp"
+        android:layout_width="@dimen/recipe_image_width"
+        android:layout_height="@dimen/recipe_image_height"
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

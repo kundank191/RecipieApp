@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.example.kunda.bakingapp.R;
 import com.example.kunda.bakingapp.data.RecipeResponse;
-import com.example.kunda.bakingapp.ui.details.StepListActivity;
+import com.example.kunda.bakingapp.ui.details.StepList.StepListActivity;
 
 import java.util.List;
 
@@ -62,8 +62,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        View movieView = LayoutInflater.from(mContext).inflate(R.layout.recipe_row_item, viewGroup, false);
-        return new ViewHolder(movieView);
+        View recipeView = LayoutInflater.from(mContext).inflate(R.layout.recipe_row_item, viewGroup, false);
+        return new ViewHolder(recipeView);
     }
 
     @Override
