@@ -3,7 +3,8 @@
     package="com.example.kunda.bakingapp">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,20 +20,30 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.details.StepListActivity"
+            android:name=".ui.details.StepList.StepListActivity"
             android:label="@string/title_step_list"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".ui.list.MainActivity"/>
+            android:parentActivityName=".ui.list.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.details.StepDetailActivity"
+            android:name=".ui.details.StepDetails.StepDetailActivity"
             android:label="@string/title_step_detail"
-            android:parentActivityName=".ui.details.StepListActivity"
+            android:parentActivityName=".ui.details.StepList.StepListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.kunda.bakingapp.ui.details.StepListActivity" />
+                android:value="com.example.kunda.bakingapp.ui.details.StepList.StepListActivity" />
         </activity>
+
+        <receiver android:name=".ui.widget.IngredientWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/ingredient_widget_info" />
+        </receiver>
     </application>
 
 </manifest>
