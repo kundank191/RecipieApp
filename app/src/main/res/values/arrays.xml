@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <array name="imageID">
+        <item>R.drawable.nutella_pie</item>
+        <item>R.drawable.brownie</item>
+        <item>R.drawable.yellow_cake</item>
+        <item>R.drawable.cheese_cake</item>
+    </array>
+</resources>
