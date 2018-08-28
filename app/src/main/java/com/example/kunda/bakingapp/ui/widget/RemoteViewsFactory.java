@@ -9,6 +9,7 @@ import com.example.kunda.bakingapp.data.RecipeResponse;
 
 /**
  * Created by Kundan on 28-08-2018.
+ * This class will be used to populate the list view of the widget
  */
 public class RemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
@@ -16,7 +17,7 @@ public class RemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory
     private RecipeResponse.Ingredient[] ingredientList;
     private String packageName;
 
-    public RemoteViewsFactory(String packageName,Intent intent, RecipeResponse.Ingredient[] ingredientList) {
+    public RemoteViewsFactory(Intent intent, RecipeResponse.Ingredient[] ingredientList, String packageName) {
         this.intent = intent;
         this.ingredientList = ingredientList;
         this.packageName = packageName;
@@ -47,8 +48,38 @@ public class RemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory
     public RemoteViews getViewAt(int i) {
         RecipeResponse.Ingredient ingredient = ingredientList[i];
         RemoteViews remoteViews = new RemoteViews(packageName, R.layout.ingredient_widget_row_item);
-        remoteViews.setTextViewText(R.id.ingredient_description,ingredient.getIngredient());
+        remoteViews.setTextViewText(R.id.ingredient_description,getFormattedText(ingredient));
         return remoteViews;
+    }
+
+    /**
+     *
+     * @param ingredient the ingredient to be displayed in the list
+     * @return a formatted description of the ingredient
+     */
+    private String getFormattedText(RecipeResponse.Ingredient ingredient){
+        String text;
+        String quantity;
+        String DEFAULT_VALUE_NO_UNIT = "UNIT";
+
+        //Check if amount is an integer
+        double variable = ingredient.getQuantity();
+        if ((variable == Math.floor(variable)) && !Double.isInfinite(variable)) {
+            // integer type
+            quantity = String.valueOf(variable);
+            int length = quantity.length();
+            quantity = quantity.substring(0,length - 2);
+        } else {
+            quantity = String.valueOf(variable);
+        }
+
+        // Check is measure is a number or has a unit
+        if (ingredient.getMeasure().equals(DEFAULT_VALUE_NO_UNIT)){
+            text = quantity + " " + ingredient.getIngredient();
+        } else {
+            text = quantity + " " + ingredient.getMeasure() + " of " + ingredient.getIngredient();
+        }
+        return text;
     }
 
     @Override

@@ -19,7 +19,7 @@ public class IngredientWidget extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
-        Intent intent = getIngredietsServiceIntent(context,appWidgetId);
+        Intent intent = getIngredientServiceIntent(context);
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.ingredient_widget);
         views.setRemoteAdapter(R.id.ingredients_lv, intent);
 
@@ -54,15 +54,10 @@ public class IngredientWidget extends AppWidgetProvider {
     /**
      *
      * @param context of the application
-     * @param widgetID id of the widget
      * @return and intent which will start IngredientWidgetService
      */
-    public static Intent getIngredietsServiceIntent(Context context, int widgetID){
-        Intent intent = new Intent(context,IngredientWidgetService.class);
-//        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,widgetID);
-//        intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
-        return intent;
-
+    public static Intent getIngredientServiceIntent(Context context){
+        return new Intent(context,IngredientWidgetService.class);
     }
 }
 
