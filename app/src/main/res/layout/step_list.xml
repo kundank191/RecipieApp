@@ -10,6 +10,7 @@
         android:id="@+id/intro_group_view"
         android:layout_width="match_parent"
         android:layout_height="64dp"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
         xmlns:tools="http://schemas.android.com/tools"
         android:orientation="vertical">
 
