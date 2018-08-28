@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:baselineAligned="false"
+    android:divider="?android:attr/dividerHorizontal"
+    android:orientation="horizontal"
+    android:showDividers="middle"
+    tools:context=".ui.details.StepList.StepListActivity">
+
+    <!--
+    This layout is a two-pane layout for the Steps
+    master/detail flow.
+    
+    -->
+    <LinearLayout
+        android:layout_width="@dimen/item_width"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="wrap_content"
+            android:id="@+id/intro_group_view"
+            android:layout_height="64dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/about_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textSize="12sp"
+                android:text="@string/about" />
+
+            <TextView
+                android:id="@+id/ingredients_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textSize="16sp"
+                android:text="@string/ingredients" />
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/step_list"
+            android:name="com.example.kunda.bakingapp.ui.details.StepListFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:nestedScrollingEnabled="true"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            tools:context=".ui.details.StepList.StepListActivity"
+            tools:listitem="@layout/step_list_content" />
+
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/step_detail_container"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="3" />
+
+</LinearLayout>
