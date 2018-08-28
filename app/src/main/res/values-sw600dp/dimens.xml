@@ -2,4 +2,8 @@
 <resources>
     <dimen name="recipe_image_width">0dp</dimen>
     <dimen name="recipe_image_height">360dp</dimen>
+
+    <!-- Dimens for ExoPlayer -->
+    <dimen name="exoplayer_width">0dp</dimen>
+    <dimen name="exoplayer_height">300dp</dimen>
 </resources>
