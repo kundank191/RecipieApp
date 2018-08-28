@@ -93,17 +93,15 @@ public class StepListActivity extends AppCompatActivity implements DetailsItemCl
         mContext = this;
         ButterKnife.bind(this);
 
+        // Initially when Step List activity is opened in tablet then detail fragment will show ingredients
+        if(mTwoPane)
+            showIngredientsList();
+
         mAboutView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (mTwoPane) {
-                    Bundle arguments = new Bundle();
-                    arguments.putSerializable(StepIntroFragment.ARG_STEP_INTRO,mDetailsViewModel.getAllRecipeDetails());
-                    StepIntroFragment fragment = new StepIntroFragment();
-                    fragment.setArguments(arguments);
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.step_detail_container, fragment)
-                            .commit();
+                    showIngredientsList();
                 } else {
                     Intent intent = new Intent(getBaseContext(), StepDetailActivity.class);
                     intent.putExtra(StepIntroFragment.ARG_STEP_INTRO,mDetailsViewModel.getAllRecipeDetails());
@@ -112,6 +110,16 @@ public class StepListActivity extends AppCompatActivity implements DetailsItemCl
 
             }
         });
+    }
+
+    private void showIngredientsList(){
+        Bundle arguments = new Bundle();
+        arguments.putSerializable(StepIntroFragment.ARG_STEP_INTRO,mDetailsViewModel.getAllRecipeDetails());
+        StepIntroFragment fragment = new StepIntroFragment();
+        fragment.setArguments(arguments);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.step_detail_container, fragment)
+                .commit();
     }
 
     /**
