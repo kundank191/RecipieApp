@@ -7,19 +7,19 @@ import android.widget.RemoteViewsService;
 import com.example.kunda.bakingapp.R;
 import com.example.kunda.bakingapp.data.RecipeResponse;
 
-import java.util.List;
-
 /**
  * Created by Kundan on 28-08-2018.
  */
 public class RemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
     private Intent intent;
-    private List<RecipeResponse.Ingredient> ingredientList;
+    private RecipeResponse.Ingredient[] ingredientList;
+    private String packageName;
 
-    public RemoteViewsFactory(Intent intent, List<RecipeResponse.Ingredient> ingredientList) {
+    public RemoteViewsFactory(String packageName,Intent intent, RecipeResponse.Ingredient[] ingredientList) {
         this.intent = intent;
         this.ingredientList = ingredientList;
+        this.packageName = packageName;
     }
 
 
@@ -40,13 +40,13 @@ public class RemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory
 
     @Override
     public int getCount() {
-        return ingredientList.size();
+        return ingredientList.length;
     }
 
     @Override
     public RemoteViews getViewAt(int i) {
-        RecipeResponse.Ingredient ingredient = ingredientList.get(i);
-        RemoteViews remoteViews = new RemoteViews("com.example.kunda.bakingapp", R.layout.ingredient_widget_row_item);
+        RecipeResponse.Ingredient ingredient = ingredientList[i];
+        RemoteViews remoteViews = new RemoteViews(packageName, R.layout.ingredient_widget_row_item);
         remoteViews.setTextViewText(R.id.ingredient_description,ingredient.getIngredient());
         return remoteViews;
     }

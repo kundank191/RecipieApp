@@ -3,7 +3,9 @@ package com.example.kunda.bakingapp.ui.details.StepList;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +20,7 @@ import com.example.kunda.bakingapp.ui.ViewModelFactory;
 import com.example.kunda.bakingapp.ui.details.Fragments.StepDetailFragment;
 import com.example.kunda.bakingapp.ui.details.Fragments.StepIntroFragment;
 import com.example.kunda.bakingapp.ui.details.StepDetails.StepDetailActivity;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -40,6 +43,8 @@ public class StepListActivity extends AppCompatActivity implements DetailsItemCl
      */
     private boolean mTwoPane;
     public static String RECIPE_KEY = "getThatRecipe";
+    public static String PREF_KEY_INGREDIENTS  = "Ingredients list";
+    public static String PREF_KEY_RECIPE_NAME = "Recipe Name";
     private RecipeResponse mRecipe;
     private ViewModelFactory mFactory;
     private RecipeViewModel mViewModel;
@@ -78,6 +83,7 @@ public class StepListActivity extends AppCompatActivity implements DetailsItemCl
         }
 
         initViews();
+        startCooking();
     }
 
     private void initViews(){
@@ -106,6 +112,23 @@ public class StepListActivity extends AppCompatActivity implements DetailsItemCl
 
             }
         });
+    }
+
+    /**
+     * The recipe on which the user will click will be saved in preferences and this recipe's ingredients will be shown in the widget
+     */
+    private void startCooking(){
+
+        SharedPreferences appSharedPrefs = PreferenceManager
+                .getDefaultSharedPreferences(this.getApplicationContext());
+        SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
+
+        Gson gson = new Gson();
+        String ingredientsListJson = gson.toJson(mDetailsViewModel.getIngredientsList());
+        prefsEditor.putString(PREF_KEY_INGREDIENTS, ingredientsListJson);
+        prefsEditor.putString(PREF_KEY_RECIPE_NAME,mDetailsViewModel.getRecipeName());
+        prefsEditor.apply();
+
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
