@@ -10,7 +10,7 @@ import android.support.annotation.VisibleForTesting;
 import android.support.constraint.Group;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements OnDataReceivedLis
     RecipeAdapter mAdapter;
     private RecipeViewModel mViewModel;
     private ViewModelFactory mFactory;
+    private int NUM_GRID_COLUMNS = 1;
     @Nullable private RecipeListIdlingResource mIdlingResource;
 
     @Override
@@ -71,6 +72,8 @@ public class MainActivity extends AppCompatActivity implements OnDataReceivedLis
 
     public void init(){
         ButterKnife.bind(this);
+        //Get the no of columns for the layout
+        NUM_GRID_COLUMNS = getResources().getInteger(R.integer.grid_layout_columns);
         //It enables user to fetch data when something has went wrong like network error
         mRetryButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements OnDataReceivedLis
         mRecyclerView.setVisibility(View.VISIBLE);
 
         mAdapter = new RecipeAdapter(this, recipeResponseList);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this,NUM_GRID_COLUMNS));
         mRecyclerView.setAdapter(mAdapter);
     }
 
