@@ -9,8 +9,8 @@
     <!-- This shows subsections under recipe shows its steps in a list -->
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="@dimen/big_icon_width"
+        android:layout_height="@dimen/big_icon_heigt"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"

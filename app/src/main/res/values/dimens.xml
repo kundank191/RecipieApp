@@ -14,4 +14,25 @@
     <!-- Dimens for ExoPlayer landscape mode-->
     <dimen name="exoplayer_land_width">0dp</dimen>
     <dimen name="exoplayer_land_height">0dp</dimen>
+    <dimen name="fab_bottom_margin">16dp</dimen>
+    <dimen name="fab_end_margin">16dp</dimen>
+    <dimen name="nav_button_bottom_margin">16dp</dimen>
+    <dimen name="nav_button_horizontal_margin">16dp</dimen>
+    <dimen name="nav_button_top_margin">8dp</dimen>
+    <dimen name="big_icon_width">40dp</dimen>
+    <dimen name="big_icon_heigt">40dp</dimen>
+    <dimen name="step_list_margin_top">56dp</dimen>
+    <dimen name="ingredient_icon_bottom_margin">8dp</dimen>
+    <dimen name="ingredient_icon_start_margin">16dp</dimen>
+    <dimen name="ingredient_icon_top_margin">8dp</dimen>
+    <dimen name="ingredient_title_start_margin">8dp</dimen>
+    <dimen name="ingredeint_title_top_margin">16dp</dimen>
+    <dimen name="row_item_start_margin">16dp</dimen>
+    <dimen name="row_item_end_margin">16dp</dimen>
+    <dimen name="sinlge_line_row_item_height">48dp</dimen>
+    <dimen name="servings_text_margin_bottom">16dp</dimen>
+    <dimen name="item_margin_start">16dp</dimen>
+    <dimen name="item_margin_end">16dp</dimen>
+    <dimen name="margin_top_16dp">16dp</dimen>
+    <dimen name="row_item_double_line_height">64dp</dimen>
 </resources>

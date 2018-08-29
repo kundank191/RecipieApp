@@ -9,11 +9,11 @@
     <!-- This layout will be the layout of the app widget -->
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="@dimen/big_icon_width"
+        android:layout_height="@dimen/big_icon_heigt"
+        android:layout_marginBottom="@dimen/ingredient_icon_bottom_margin"
+        android:layout_marginStart="@dimen/ingredient_icon_start_margin"
+        android:layout_marginTop="@dimen/ingredient_icon_top_margin"
         android:contentDescription="@string/ingredients"
         android:src="@drawable/ingredients" />
 
@@ -21,8 +21,8 @@
         android:id="@+id/about_ingredient_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="@dimen/ingredient_title_start_margin"
+        android:layout_marginTop="@dimen/ingredeint_title_top_margin"
         android:layout_toEndOf="@id/imageView"
         android:text="@string/ingredients"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -33,7 +33,7 @@
         android:id="@+id/ingredients_lv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="@dimen/step_list_margin_top"
         android:visibility="visible" />
 
 
