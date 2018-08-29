@@ -7,6 +7,7 @@
     android:fitsSystemWindows="true"
     tools:context=".ui.details.StepList.StepListActivity">
 
+    <!-- This layout shows list of steps-->
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"

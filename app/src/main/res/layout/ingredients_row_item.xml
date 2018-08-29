@@ -5,6 +5,7 @@
     android:layout_height="48dp"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Layout for individual ingredient item -->
     <TextView
         android:id="@+id/ingredient_name_tv"
         android:layout_width="0dp"

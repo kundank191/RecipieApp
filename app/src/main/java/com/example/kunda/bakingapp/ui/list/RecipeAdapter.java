@@ -22,8 +22,9 @@ import butterknife.ButterKnife;
 
 /**
  * Created by Kundan on 08-08-2018.
+ * Shows list of recipe on the main activity
  */
-public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder>  {
+public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> {
 
     private Integer[] imageID = {R.drawable.nutella_pie
             , R.drawable.brownie
@@ -67,7 +68,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder,int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
         final RecipeResponse recipe = mList.get(i);
         viewHolder.recipeNameTV.setText(recipe.getName());
@@ -77,8 +78,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         viewHolder.listItemRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext,StepListActivity.class);
-                intent.putExtra(StepListActivity.RECIPE_KEY,recipe);
+                Intent intent = new Intent(mContext, StepListActivity.class);
+                intent.putExtra(StepListActivity.RECIPE_KEY, recipe);
                 mContext.startActivity(intent);
             }
         });

@@ -43,16 +43,14 @@ public class StepListActivity extends AppCompatActivity implements DetailsItemCl
      */
     private boolean mTwoPane;
     public static String RECIPE_KEY = "getThatRecipe";
-    public static String PREF_KEY_INGREDIENTS  = "Ingredients list";
+    public static String PREF_KEY_INGREDIENTS = "Ingredients list";
     public static String PREF_KEY_RECIPE_NAME = "Recipe Name";
-    private RecipeResponse mRecipe;
-    private ViewModelFactory mFactory;
-    private RecipeViewModel mViewModel;
     RecipeViewModel.RecipeDetails mDetailsViewModel;
     private List<RecipeResponse.Step> mListSteps;
     private Context mContext;
     @BindView(R.id.intro_group_view)
     LinearLayout mAboutView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,10 +61,10 @@ public class StepListActivity extends AppCompatActivity implements DetailsItemCl
 
         //The Recipe object passed though intent will be received
         Intent intent = getIntent();
-        mRecipe = (RecipeResponse) intent.getSerializableExtra(RECIPE_KEY);
+        RecipeResponse mRecipe = (RecipeResponse) intent.getSerializableExtra(RECIPE_KEY);
 
-        mFactory = new ViewModelFactory();
-        mViewModel = ViewModelProviders.of(this,mFactory).get(RecipeViewModel.class);
+        ViewModelFactory mFactory = new ViewModelFactory();
+        RecipeViewModel mViewModel = ViewModelProviders.of(this, mFactory).get(RecipeViewModel.class);
         //The recipe object will be used to initialize viewModel , the viewModel for this activity is a subclass in RecipeViewModel
         mDetailsViewModel = mViewModel.getRecipeDetailsViewModel(mRecipe);
         //After setting up view model the list of steps will be derived from there
@@ -86,7 +84,8 @@ public class StepListActivity extends AppCompatActivity implements DetailsItemCl
         startCooking();
     }
 
-    private void initViews(){
+    // initialize views
+    private void initViews() {
         View recyclerView = findViewById(R.id.step_list);
         assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
@@ -94,7 +93,7 @@ public class StepListActivity extends AppCompatActivity implements DetailsItemCl
         ButterKnife.bind(this);
 
         // Initially when Step List activity is opened in tablet then detail fragment will show ingredients
-        if(mTwoPane)
+        if (mTwoPane)
             showIngredientsList();
 
         mAboutView.setOnClickListener(new View.OnClickListener() {
@@ -104,7 +103,7 @@ public class StepListActivity extends AppCompatActivity implements DetailsItemCl
                     showIngredientsList();
                 } else {
                     Intent intent = new Intent(getBaseContext(), StepDetailActivity.class);
-                    intent.putExtra(StepIntroFragment.ARG_STEP_INTRO,mDetailsViewModel.getAllRecipeDetails());
+                    intent.putExtra(StepIntroFragment.ARG_STEP_INTRO, mDetailsViewModel.getAllRecipeDetails());
                     mContext.startActivity(intent);
                 }
 
@@ -112,9 +111,10 @@ public class StepListActivity extends AppCompatActivity implements DetailsItemCl
         });
     }
 
-    private void showIngredientsList(){
+    // when About Ingredients is selected then detail of all the ingredient will be shown in a new fragment
+    private void showIngredientsList() {
         Bundle arguments = new Bundle();
-        arguments.putSerializable(StepIntroFragment.ARG_STEP_INTRO,mDetailsViewModel.getAllRecipeDetails());
+        arguments.putSerializable(StepIntroFragment.ARG_STEP_INTRO, mDetailsViewModel.getAllRecipeDetails());
         StepIntroFragment fragment = new StepIntroFragment();
         fragment.setArguments(arguments);
         getSupportFragmentManager().beginTransaction()
@@ -125,7 +125,7 @@ public class StepListActivity extends AppCompatActivity implements DetailsItemCl
     /**
      * The recipe on which the user will click will be saved in preferences and this recipe's ingredients will be shown in the widget
      */
-    private void startCooking(){
+    private void startCooking() {
 
         SharedPreferences appSharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(this.getApplicationContext());
@@ -134,24 +134,26 @@ public class StepListActivity extends AppCompatActivity implements DetailsItemCl
         Gson gson = new Gson();
         String ingredientsListJson = gson.toJson(mDetailsViewModel.getIngredientsList());
         prefsEditor.putString(PREF_KEY_INGREDIENTS, ingredientsListJson);
-        prefsEditor.putString(PREF_KEY_RECIPE_NAME,mDetailsViewModel.getRecipeName());
+        prefsEditor.putString(PREF_KEY_RECIPE_NAME, mDetailsViewModel.getRecipeName());
         prefsEditor.apply();
 
     }
 
+    //setup recycler view to show steps
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         recyclerView.setAdapter(new DetailsAdapter(this, mDetailsViewModel.getRecipeSteps(), mTwoPane));
     }
 
     /**
      * This method will be triggered when a recycler view item will be clicked
+     *
      * @param position of the item which was clicked
      */
     @Override
     public void onItemClick(int position) {
         if (mTwoPane) {
             Bundle arguments = new Bundle();
-            arguments.putSerializable(StepDetailFragment.ARG_STEP_INFO,mListSteps.get(position));
+            arguments.putSerializable(StepDetailFragment.ARG_STEP_INFO, mListSteps.get(position));
             StepDetailFragment fragment = new StepDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
@@ -159,8 +161,8 @@ public class StepListActivity extends AppCompatActivity implements DetailsItemCl
                     .commit();
         } else {
             Intent intent = new Intent(getBaseContext(), StepDetailActivity.class);
-            intent.putExtra(StepDetailActivity.ARG_ALL_STEPS,mDetailsViewModel.getAllRecipeDetails());
-            intent.putExtra(StepDetailFragment.ARG_STEP_INFO,position);
+            intent.putExtra(StepDetailActivity.ARG_ALL_STEPS, mDetailsViewModel.getAllRecipeDetails());
+            intent.putExtra(StepDetailFragment.ARG_STEP_INFO, position);
             this.startActivity(intent);
         }
     }

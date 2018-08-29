@@ -35,13 +35,13 @@ public class MainActivityIntentsTest {
     public IntentsTestRule<MainActivity> intentsTestRule = new IntentsTestRule<>(MainActivity.class);
 
     @Before
-    public void registerIdlingResource(){
+    public void registerIdlingResource() {
         idlingResource = intentsTestRule.getActivity().getIdlingResource();
         IdlingRegistry.getInstance().register(idlingResource);
     }
 
     @Test
-    public void testIntentValidity(){
+    public void testIntentValidity() {
         onView(withId(R.id.recipeList_rv))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
 
@@ -49,7 +49,7 @@ public class MainActivityIntentsTest {
     }
 
     @After
-    public void unregisterIdlingResource(){
+    public void unregisterIdlingResource() {
         IdlingRegistry.getInstance().unregister(idlingResource);
     }
 }

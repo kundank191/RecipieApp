@@ -39,12 +39,12 @@ public class StepDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_detail);
         ButterKnife.bind(this);
-        if(getIntent().hasExtra(ARG_ALL_STEPS)){
+        if (getIntent().hasExtra(ARG_ALL_STEPS)) {
             mRecipe = (RecipeResponse) getIntent().getSerializableExtra(ARG_ALL_STEPS);
             mStepList = mRecipe.getSteps();
         }
-        if(getIntent().hasExtra(StepDetailFragment.ARG_STEP_INFO)){
-            position = getIntent().getIntExtra(StepDetailFragment.ARG_STEP_INFO,0);
+        if (getIntent().hasExtra(StepDetailFragment.ARG_STEP_INFO)) {
+            position = getIntent().getIntExtra(StepDetailFragment.ARG_STEP_INFO, 0);
         }
         // savedInstanceState is non-null when there is fragment state
         // saved from previous configurations of this activity
@@ -58,7 +58,7 @@ public class StepDetailActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             //If Step Item was clicked then detail fragment will be shown for that step , else if the ingredient view was clicked the ingredients list will be shown
             if (getIntent().hasExtra(StepDetailFragment.ARG_STEP_INFO)) {
-                if (position == mStepList.size() - 1){
+                if (position == mStepList.size() - 1) {
                     mNextButton.setText(getResources().getText(R.string.finish));
                 }
                 Bundle arguments = new Bundle();
@@ -82,13 +82,17 @@ public class StepDetailActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * @param button next button
+     *               Implement functionality to easily navigate between steeps
+     */
     @OnClick(R.id.next_button)
-    public void nextStep(Button button){
+    public void nextStep(Button button) {
         position += 1;
-        if (position == mStepList.size()){
+        if (position == mStepList.size()) {
             finish();
             position -= 1;
-        }else if (position == mStepList.size() -1){
+        } else if (position == mStepList.size() - 1) {
             button.setText(getResources().getText(R.string.finish));
         }
         Bundle arguments = new Bundle();
@@ -101,10 +105,14 @@ public class StepDetailActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * @param button back button
+     *               Implement functionality to navigate between steps
+     */
     @OnClick(R.id.back_button)
-    public void previousStep(Button button){
+    public void previousStep(Button button) {
         position -= 1;
-        if (position == -1){
+        if (position == -1) {
             finish();
             position = 0;
         }

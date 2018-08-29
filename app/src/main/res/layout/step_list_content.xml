@@ -6,6 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
+    <!-- individual row item for step of a recipe -->
     <TextView
         android:id="@+id/id_text"
         android:layout_width="wrap_content"

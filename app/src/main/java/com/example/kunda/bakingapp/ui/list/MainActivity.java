@@ -32,7 +32,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements OnDataReceivedListener{
+public class MainActivity extends AppCompatActivity implements OnDataReceivedListener {
 
     @BindView(R.id.no_internet_view)
     TextView mNoInternetView;
@@ -48,9 +48,9 @@ public class MainActivity extends AppCompatActivity implements OnDataReceivedLis
     LottieAnimationView mLottieView;
     RecipeAdapter mAdapter;
     private RecipeViewModel mViewModel;
-    private ViewModelFactory mFactory;
     private int NUM_GRID_COLUMNS = 1;
-    @Nullable private RecipeListIdlingResource mIdlingResource;
+    @Nullable
+    private RecipeListIdlingResource mIdlingResource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements OnDataReceivedLis
         init();
 
         //Setting up viewModelFactory and recipeViewModel
-        mFactory = new ViewModelFactory();
+        ViewModelFactory mFactory = new ViewModelFactory();
         mViewModel = ViewModelProviders.of(this, mFactory).get(RecipeViewModel.class);
 
         if (mViewModel.getRecipeList() != null) {
@@ -70,7 +70,8 @@ public class MainActivity extends AppCompatActivity implements OnDataReceivedLis
         }
     }
 
-    public void init(){
+    // Initialize views
+    public void init() {
         ButterKnife.bind(this);
         //Get the no of columns for the layout
         NUM_GRID_COLUMNS = getResources().getInteger(R.integer.grid_layout_columns);
@@ -98,6 +99,10 @@ public class MainActivity extends AppCompatActivity implements OnDataReceivedLis
         }
     }
 
+    /**
+     * @param recipeResponseList the Recipe List
+     *                           It show the Recipe list recycler view and hide irrelevant views
+     */
     private void populateUI(List<RecipeResponse> recipeResponseList) {
 
         mProgressView.setVisibility(View.GONE);
@@ -107,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements OnDataReceivedLis
         mRecyclerView.setVisibility(View.VISIBLE);
 
         mAdapter = new RecipeAdapter(this, recipeResponseList);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this,NUM_GRID_COLUMNS));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this, NUM_GRID_COLUMNS));
         mRecyclerView.setAdapter(mAdapter);
     }
 

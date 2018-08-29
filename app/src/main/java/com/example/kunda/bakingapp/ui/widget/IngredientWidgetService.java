@@ -24,6 +24,6 @@ public class IngredientWidgetService extends RemoteViewsService {
         String jsonIngredientsList = appSharedPrefs.getString(StepListActivity.PREF_KEY_INGREDIENTS, "");
         RecipeResponse.Ingredient[] ingredientList = gson.fromJson(jsonIngredientsList, RecipeResponse.Ingredient[].class);
 
-        return new com.example.kunda.bakingapp.ui.widget.RemoteViewsFactory(intent,ingredientList,getPackageName());
+        return new com.example.kunda.bakingapp.ui.widget.RemoteViewsFactory(intent, ingredientList, getPackageName());
     }
 }

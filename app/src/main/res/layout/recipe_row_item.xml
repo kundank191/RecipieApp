@@ -11,6 +11,7 @@
     android:layout_height="wrap_content"
     android:id="@+id/list_item_recipe">
 
+    <!-- This layout shows a recipe item -->
     <View
         android:layout_width="@dimen/recipe_image_width"
         android:layout_height="@dimen/recipe_image_height"
@@ -55,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginStart="16dp"
-        android:text="8 servings"
+        tools:text="8 servings"
         android:textColor="@color/textColorPrimaryLight"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

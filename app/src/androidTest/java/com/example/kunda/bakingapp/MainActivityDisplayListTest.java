@@ -38,7 +38,7 @@ public class MainActivityDisplayListTest {
     }
 
     @Test
-    public void checkItemName(){
+    public void checkItemName() {
         onView(withText(TEST_NAME)).check(matches(isDisplayed()));
     }
 

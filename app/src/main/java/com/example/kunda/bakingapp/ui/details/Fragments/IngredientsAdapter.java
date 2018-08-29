@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
 
 /**
  * Created by Kundan on 14-08-2018.
+ * Adapter to show list of ingredients in recycler view
  */
 public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.ViewHolder> {
 

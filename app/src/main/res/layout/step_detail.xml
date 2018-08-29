@@ -9,6 +9,7 @@
     android:textIsSelectable="true"
     tools:context=".ui.details.Fragments.StepDetailFragment" >
 
+    <!-- This layout shows detail of an individual step -->
     <com.google.android.exoplayer2.ui.PlayerView
         android:id="@+id/video_player_view"
         android:layout_width="@dimen/exoplayer_width"

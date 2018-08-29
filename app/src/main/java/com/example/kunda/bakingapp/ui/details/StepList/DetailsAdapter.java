@@ -15,6 +15,7 @@ import java.util.List;
 
 /**
  * Created by Kundan on 13-08-2018.
+ * Shows steps for the recipe in a recycler view
  */
 public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ViewHolder> {
 

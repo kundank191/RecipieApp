@@ -6,12 +6,12 @@ import android.support.annotation.NonNull;
 
 /**
  * Created by Kundan on 12-08-2018.
- *
+ * <p>
  * Gives back an instance of RecipeViewModel
  */
 public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
-    public ViewModelFactory(){
+    public ViewModelFactory() {
 
     }
 

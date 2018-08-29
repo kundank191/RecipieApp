@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <!-- Shows List of steps to make recipe -->
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/intro_group_view"
         android:layout_width="match_parent"

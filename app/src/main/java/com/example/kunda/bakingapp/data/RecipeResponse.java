@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Created by Kundan on 07-08-2018.
  * Recipe Response POJO for the data we get from internet
  */
-public class RecipeResponse implements Serializable{
+public class RecipeResponse implements Serializable {
 
     private int id;
 
@@ -69,7 +69,10 @@ public class RecipeResponse implements Serializable{
         this.image = image;
     }
 
-    public class Ingredient implements Serializable{
+    /**
+     * Ingredients POJO
+     */
+    public class Ingredient implements Serializable {
         private double quantity;
 
         public double getQuantity() {
@@ -101,7 +104,10 @@ public class RecipeResponse implements Serializable{
         }
     }
 
-    public class Step implements Serializable{
+    /**
+     * Step of Recipe POJO
+     */
+    public class Step implements Serializable {
         private int id;
 
         public int getId() {

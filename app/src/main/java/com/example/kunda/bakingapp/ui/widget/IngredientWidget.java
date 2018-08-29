@@ -13,6 +13,7 @@ import com.example.kunda.bakingapp.ui.details.StepList.StepListActivity;
 
 /**
  * Implementation of App Widget functionality.
+ * This widget will show the ingredients for the last visited recipe
  */
 public class IngredientWidget extends AppWidgetProvider {
 
@@ -27,7 +28,7 @@ public class IngredientWidget extends AppWidgetProvider {
         SharedPreferences appSharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(context.getApplicationContext());
         String recipeName = appSharedPrefs.getString(StepListActivity.PREF_KEY_RECIPE_NAME, context.getString(R.string.ingredients));
-        views.setTextViewText(R.id.about_ingredient_tv,recipeName);
+        views.setTextViewText(R.id.about_ingredient_tv, recipeName);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
@@ -52,12 +53,11 @@ public class IngredientWidget extends AppWidgetProvider {
     }
 
     /**
-     *
      * @param context of the application
      * @return and intent which will start IngredientWidgetService
      */
-    public static Intent getIngredientServiceIntent(Context context){
-        return new Intent(context,IngredientWidgetService.class);
+    public static Intent getIngredientServiceIntent(Context context) {
+        return new Intent(context, IngredientWidgetService.class);
     }
 }
 

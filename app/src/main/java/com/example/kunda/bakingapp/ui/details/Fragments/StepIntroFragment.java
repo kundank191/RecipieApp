@@ -19,6 +19,7 @@ import butterknife.ButterKnife;
 
 /**
  * Created by Kundan on 13-08-2018.
+ * Shows the list of steps in in recycler view
  */
 public class StepIntroFragment extends android.support.v4.app.Fragment {
 
@@ -28,15 +29,15 @@ public class StepIntroFragment extends android.support.v4.app.Fragment {
     public static final String ARG_STEP_INTRO = "step_intro";
     private List<RecipeResponse.Ingredient> mIngredientsList;
 
-    public StepIntroFragment(){
+    public StepIntroFragment() {
 
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if(getArguments() != null && getArguments().containsKey(ARG_STEP_INTRO)){
+        // Get data from arguments and initialize data
+        if (getArguments() != null && getArguments().containsKey(ARG_STEP_INTRO)) {
             RecipeResponse recipe = (RecipeResponse) getArguments().getSerializable(ARG_STEP_INTRO);
             mIngredientsList = recipe.getIngredients();
         }
@@ -47,13 +48,16 @@ public class StepIntroFragment extends android.support.v4.app.Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.step_intro, container, false);
-        ButterKnife.bind(this,rootView);
+        ButterKnife.bind(this, rootView);
         initViews();
         return rootView;
     }
 
-    void initViews(){
-        mAdapter = new IngredientsAdapter(getActivity(),mIngredientsList);
+    /**
+     * Initialize the recycler view
+     */
+    void initViews() {
+        mAdapter = new IngredientsAdapter(getActivity(), mIngredientsList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mAdapter);
     }

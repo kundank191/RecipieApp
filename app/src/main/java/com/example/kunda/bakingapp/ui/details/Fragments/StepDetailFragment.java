@@ -33,6 +33,7 @@ import butterknife.ButterKnife;
 public class StepDetailFragment extends Fragment {
 
     public static final String ARG_STEP_INFO = "step_details";
+    public static final String APP_NAME = "Baking-App";
     RecipeResponse.Step mStepDetails;
     @BindView(R.id.video_player_view)
     PlayerView mMediaPlayerView;
@@ -47,6 +48,7 @@ public class StepDetailFragment extends Fragment {
     public StepDetailFragment() {
     }
 
+    // Get data from arguments
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +67,9 @@ public class StepDetailFragment extends Fragment {
         return rootView;
     }
 
+    /**
+     * Initialize exoplayer
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -75,7 +80,7 @@ public class StepDetailFragment extends Fragment {
         mMediaPlayerView.setPlayer(player);
 
         DefaultDataSourceFactory factory = new DefaultDataSourceFactory(getActivity()
-                , Util.getUserAgent(getActivity(), "Baking-app"));
+                , Util.getUserAgent(getActivity(), APP_NAME));
 
         ExtractorMediaSource mediaSource = new ExtractorMediaSource.Factory(factory)
                 .createMediaSource(Uri.parse(mStepDetails.getVideoURL()));
@@ -92,7 +97,7 @@ public class StepDetailFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if(getActivity() != null && getActivity().isChangingConfigurations()){
+        if (getActivity() != null && getActivity().isChangingConfigurations()) {
             //Do nothing
         } else {
             mMediaPlayerView.setPlayer(null);
@@ -101,9 +106,13 @@ public class StepDetailFragment extends Fragment {
 
     }
 
-    private String getFormattedDescription(String description){
+    /**
+     * @param description the description of the step
+     * @return a formatted for of this description with the number removed
+     */
+    private String getFormattedDescription(String description) {
         int dotIndex = description.indexOf(".");
-        if(dotIndex != -1) {
+        if (dotIndex != -1) {
             int length = description.length();
             return description.substring(dotIndex, length);
         } else {
