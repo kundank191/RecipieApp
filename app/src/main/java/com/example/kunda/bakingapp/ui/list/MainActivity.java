@@ -4,6 +4,9 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 import android.support.constraint.Group;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +21,7 @@ import com.example.kunda.bakingapp.R;
 import com.example.kunda.bakingapp.data.RecipeResponse;
 import com.example.kunda.bakingapp.ui.RecipeViewModel;
 import com.example.kunda.bakingapp.ui.ViewModelFactory;
+import com.example.kunda.bakingapp.ui.list.IdlingResource.RecipeListIdlingResource;
 import com.example.kunda.bakingapp.utils.JSONUtils;
 import com.example.kunda.bakingapp.utils.NetworkUtils;
 
@@ -28,7 +32,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements OnDataReceivedListener {
+public class MainActivity extends AppCompatActivity implements OnDataReceivedListener{
 
     @BindView(R.id.no_internet_view)
     TextView mNoInternetView;
@@ -45,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements OnDataReceivedLis
     RecipeAdapter mAdapter;
     private RecipeViewModel mViewModel;
     private ViewModelFactory mFactory;
+    @Nullable private RecipeListIdlingResource mIdlingResource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +135,19 @@ public class MainActivity extends AppCompatActivity implements OnDataReceivedLis
     }
 
     /**
+     * Only called from test, creates and returns a new {@link RecipeListIdlingResource}.
+     */
+    @VisibleForTesting
+    @NonNull
+    public RecipeListIdlingResource getIdlingResource() {
+        if (mIdlingResource == null) {
+            mIdlingResource = new RecipeListIdlingResource();
+        }
+        return mIdlingResource;
+    }
+
+
+    /**
      * It checks if the device is connected to the internet or not
      *
      * @return a boolean value indicating the state of network
@@ -173,4 +191,5 @@ public class MainActivity extends AppCompatActivity implements OnDataReceivedLis
         mRetryButton.setVisibility(View.VISIBLE);
         mNoInternetView.setVisibility(View.VISIBLE);
     }
+
 }
