@@ -11,9 +11,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.kunda.bakingapp.R;
 import com.example.kunda.bakingapp.data.RecipeResponse;
 import com.example.kunda.bakingapp.ui.details.StepList.StepListActivity;
+import com.example.kunda.bakingapp.utils.GlideApp;
 
 import java.util.List;
 
@@ -73,7 +75,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         final RecipeResponse recipe = mList.get(i);
         viewHolder.recipeNameTV.setText(recipe.getName());
         viewHolder.servingsTV.setText(String.format(mContext.getString(R.string.servings_text), recipe.getServings()));
-        viewHolder.recipeImageIV.setImageDrawable(mContext.getDrawable(imageID[i]));
+        // using glide to set image on the recipe item
+        GlideApp.with(mContext)
+                .load(recipe.getImage())
+                .placeholder(R.drawable.loading_image)
+                //Setting hard coded image for a particular recipe
+                .error(getAppropriateImageID(i))
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(viewHolder.recipeImageIV);
         //Setting on click listener on list item to open StepListActivity to Show steps
         viewHolder.listItemRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +93,17 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
             }
         });
 
+    }
+
+    /**
+     *
+     * The json file is fixed , and only 4 recipes are there so this function will send hard coded pictures of recipe
+     * for aesthetic purpose
+     * @param position the position of the recipe item
+     * @return the appropriate image for the recipe
+     */
+    private int getAppropriateImageID(int position){
+        return imageID[position];
     }
 
     @Override
