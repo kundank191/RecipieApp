@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/step_detail"
+    style="?android:attr/textAppearanceLarge"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:textIsSelectable="true"
+    tools:context=".ui.details.Fragments.StepDetailFragment" >
+
+    <!-- This layout shows detail of an individual step -->
+    <com.google.android.exoplayer2.ui.PlayerView
+        android:id="@+id/video_player_view"
+        android:layout_width="@dimen/exoplayer_width"
+        android:layout_height="@dimen/exoplayer_height"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/video_step_description"
+        android:layout_width="0dp"
+        android:textAlignment="center"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/item_margin_end"
+        android:layout_marginStart="@dimen/item_margin_start"
+        android:layout_marginTop="@dimen/margin_top_16dp"
+        android:text="@string/description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/video_player_view" />
+</android.support.constraint.ConstraintLayout>
