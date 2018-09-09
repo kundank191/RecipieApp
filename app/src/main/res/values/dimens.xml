@@ -35,4 +35,7 @@
     <dimen name="item_margin_end">16dp</dimen>
     <dimen name="margin_top_16dp">16dp</dimen>
     <dimen name="row_item_double_line_height">64dp</dimen>
+    <!-- dimens animation view -->
+    <dimen name="animation_view_width">300dp</dimen>
+    <dimen name="animation_view_height">300dp</dimen>
 </resources>

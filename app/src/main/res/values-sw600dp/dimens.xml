@@ -6,4 +6,8 @@
     <!-- Dimens for ExoPlayer -->
     <dimen name="exoplayer_width">0dp</dimen>
     <dimen name="exoplayer_height">300dp</dimen>
+
+    <!-- dimens animation view -->
+    <dimen name="animation_view_width">400dp</dimen>
+    <dimen name="animation_view_height">400dp</dimen>
 </resources>
