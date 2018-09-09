@@ -34,12 +34,15 @@ public class StepDetailFragment extends Fragment {
 
     public static final String ARG_STEP_INFO = "step_details";
     public static final String APP_NAME = "Baking-App";
+    private static final String PLAYER_POSITION = "player position";
+    private static final long DEFAULT_PLAYER_POSITION = 0;
     RecipeResponse.Step mStepDetails;
     @BindView(R.id.video_player_view)
     PlayerView mMediaPlayerView;
     @BindView(R.id.video_step_description)
     TextView mStepDescription;
     private SimpleExoPlayer player;
+    private long position = 0;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -55,6 +58,10 @@ public class StepDetailFragment extends Fragment {
 
         if (getArguments() != null && getArguments().containsKey(ARG_STEP_INFO)) {
             mStepDetails = (RecipeResponse.Step) getArguments().getSerializable(ARG_STEP_INFO);
+        }
+        //Retrieve player position if saved
+        if (savedInstanceState != null) {
+            position = savedInstanceState.getLong(PLAYER_POSITION, DEFAULT_PLAYER_POSITION);
         }
     }
 
@@ -87,6 +94,7 @@ public class StepDetailFragment extends Fragment {
 
         player.prepare(mediaSource);
         player.setPlayWhenReady(true);
+        player.seekTo(position);
     }
 
     @Override
@@ -97,13 +105,20 @@ public class StepDetailFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (getActivity() != null && getActivity().isChangingConfigurations()) {
-            //Do nothing
-        } else {
+        if(mMediaPlayerView != null) {
             mMediaPlayerView.setPlayer(null);
+        }
+        if (player != null) {
             player.release();
         }
 
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //Save player position for config change
+        outState.putLong(PLAYER_POSITION, player.getCurrentPosition());
     }
 
     /**

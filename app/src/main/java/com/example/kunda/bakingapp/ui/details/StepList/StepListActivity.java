@@ -45,9 +45,12 @@ public class StepListActivity extends AppCompatActivity implements DetailsItemCl
     public static String RECIPE_KEY = "getThatRecipe";
     public static String PREF_KEY_INGREDIENTS = "Ingredients list";
     public static String PREF_KEY_RECIPE_NAME = "Recipe Name";
+    public static String KEY_STEP_NO = "fragment_position_is_saved";
+    public static int DEFAULT_FRAGMENT_STEP_NUMBER = -1;
     RecipeViewModel.RecipeDetails mDetailsViewModel;
     private List<RecipeResponse.Step> mListSteps;
     private Context mContext;
+    private int fragmentStepNumber = -1;
     @BindView(R.id.intro_group_view)
     LinearLayout mAboutView;
 
@@ -78,6 +81,10 @@ public class StepListActivity extends AppCompatActivity implements DetailsItemCl
             // If this view is present, then the
             // activity should be in two-pane mode.
             mTwoPane = true;
+
+            if (savedInstanceState != null){
+                fragmentStepNumber = savedInstanceState.getInt(KEY_STEP_NO,DEFAULT_FRAGMENT_STEP_NUMBER);
+            }
         }
 
         initViews();
@@ -93,8 +100,13 @@ public class StepListActivity extends AppCompatActivity implements DetailsItemCl
         ButterKnife.bind(this);
 
         // Initially when Step List activity is opened in tablet then detail fragment will show ingredients
-        if (mTwoPane)
-            showIngredientsList();
+        if (mTwoPane) {
+            if (fragmentStepNumber == DEFAULT_FRAGMENT_STEP_NUMBER) {
+                showIngredientsList();
+            } else {
+                showStepFragment(fragmentStepNumber);
+            }
+        }
 
         mAboutView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,6 +128,20 @@ public class StepListActivity extends AppCompatActivity implements DetailsItemCl
         Bundle arguments = new Bundle();
         arguments.putSerializable(StepIntroFragment.ARG_STEP_INTRO, mDetailsViewModel.getAllRecipeDetails());
         StepIntroFragment fragment = new StepIntroFragment();
+        fragment.setArguments(arguments);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.step_detail_container, fragment)
+                .commit();
+    }
+
+    /**
+     *
+     * @param stepPosition the position of the step to be shown
+     */
+    private void showStepFragment(int stepPosition) {
+        Bundle arguments = new Bundle();
+        arguments.putSerializable(StepDetailFragment.ARG_STEP_INFO, mListSteps.get(stepPosition));
+        StepDetailFragment fragment = new StepDetailFragment();
         fragment.setArguments(arguments);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.step_detail_container, fragment)
@@ -152,18 +178,20 @@ public class StepListActivity extends AppCompatActivity implements DetailsItemCl
     @Override
     public void onItemClick(int position) {
         if (mTwoPane) {
-            Bundle arguments = new Bundle();
-            arguments.putSerializable(StepDetailFragment.ARG_STEP_INFO, mListSteps.get(position));
-            StepDetailFragment fragment = new StepDetailFragment();
-            fragment.setArguments(arguments);
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.step_detail_container, fragment)
-                    .commit();
+            //saving the step whose detail is shown
+            fragmentStepNumber = position;
+            showStepFragment(position);
         } else {
             Intent intent = new Intent(getBaseContext(), StepDetailActivity.class);
             intent.putExtra(StepDetailActivity.ARG_ALL_STEPS, mDetailsViewModel.getAllRecipeDetails());
             intent.putExtra(StepDetailFragment.ARG_STEP_INFO, position);
             this.startActivity(intent);
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(KEY_STEP_NO,fragmentStepNumber);
     }
 }
