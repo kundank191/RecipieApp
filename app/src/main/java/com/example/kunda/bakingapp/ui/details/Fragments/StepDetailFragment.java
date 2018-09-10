@@ -21,6 +21,8 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
+import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -86,7 +88,7 @@ public class StepDetailFragment extends Fragment {
 
         mMediaPlayerView.setPlayer(player);
 
-        DefaultDataSourceFactory factory = new DefaultDataSourceFactory(getActivity()
+        DefaultDataSourceFactory factory = new DefaultDataSourceFactory(Objects.requireNonNull(getActivity())
                 , Util.getUserAgent(getActivity(), APP_NAME));
 
         ExtractorMediaSource mediaSource = new ExtractorMediaSource.Factory(factory)
@@ -95,11 +97,6 @@ public class StepDetailFragment extends Fragment {
         player.prepare(mediaSource);
         player.setPlayWhenReady(true);
         player.seekTo(position);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
     }
 
     @Override

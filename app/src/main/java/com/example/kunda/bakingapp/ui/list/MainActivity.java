@@ -32,6 +32,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+@SuppressWarnings("ALL")
 public class MainActivity extends AppCompatActivity implements OnDataReceivedListener {
 
     @BindView(R.id.no_internet_view)

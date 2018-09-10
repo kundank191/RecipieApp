@@ -23,11 +23,12 @@ import butterknife.OnClick;
  * item details are presented side-by-side with a list of items
  * in a {@link StepListActivity}.
  */
+@SuppressWarnings("ALL")
 public class StepDetailActivity extends AppCompatActivity {
 
     private RecipeResponse mRecipe;
     private List<RecipeResponse.Step> mStepList;
-    public static String ARG_ALL_STEPS = "all_the_steps";
+    public static final String ARG_ALL_STEPS = "all_the_steps";
     private int position;
     @BindView(R.id.next_button)
     Button mNextButton;

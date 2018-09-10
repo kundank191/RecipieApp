@@ -1,8 +1,5 @@
 package com.example.kunda.bakingapp.ui.list.IdlingResource;
 
-/**
- * Created by Kundan on 29-08-2018.
- */
 /*
  * Copyright 2016, The Android Open Source Project
  *
@@ -22,6 +19,7 @@ package com.example.kunda.bakingapp.ui.list.IdlingResource;
 import android.support.annotation.Nullable;
 import android.support.test.espresso.IdlingResource;
 
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
@@ -63,7 +61,7 @@ public class RecipeListIdlingResource implements IdlingResource {
     public void setIdleState(boolean isIdleNow) {
         mIsIdleNow.set(isIdleNow);
         if (isIdleNow && mCallback != null) {
-            mCallback.onTransitionToIdle();
+            Objects.requireNonNull(mCallback).onTransitionToIdle();
         }
     }
 }

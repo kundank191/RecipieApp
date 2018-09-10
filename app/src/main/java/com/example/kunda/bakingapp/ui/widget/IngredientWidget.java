@@ -17,8 +17,8 @@ import com.example.kunda.bakingapp.ui.details.StepList.StepListActivity;
  */
 public class IngredientWidget extends AppWidgetProvider {
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId) {
+    private static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
+                                        int appWidgetId) {
 
         Intent intent = getIngredientServiceIntent(context);
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.ingredient_widget);

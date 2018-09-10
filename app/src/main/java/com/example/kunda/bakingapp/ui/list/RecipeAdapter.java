@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
  */
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> {
 
-    private Integer[] imageID = {R.drawable.nutella_pie
+    private final Integer[] imageID = {R.drawable.nutella_pie
             , R.drawable.brownie
             , R.drawable.yellow_cake
             , R.drawable.cheese_cake};
@@ -49,8 +49,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         }
     }
 
-    private Context mContext;
-    private List<RecipeResponse> mList;
+    private final Context mContext;
+    private final List<RecipeResponse> mList;
 
     /**
      * @param context            takes the context of the activity
@@ -83,6 +83,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                 .error(getAppropriateImageID(i))
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(viewHolder.recipeImageIV);
+        //set content description on recipe image
+        viewHolder.recipeImageIV.setContentDescription(recipe.getName());
         //Setting on click listener on list item to open StepListActivity to Show steps
         viewHolder.listItemRecipe.setOnClickListener(new View.OnClickListener() {
             @Override

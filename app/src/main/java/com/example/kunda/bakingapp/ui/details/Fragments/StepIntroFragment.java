@@ -13,6 +13,7 @@ import com.example.kunda.bakingapp.R;
 import com.example.kunda.bakingapp.data.RecipeResponse;
 
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,7 +40,7 @@ public class StepIntroFragment extends android.support.v4.app.Fragment {
         // Get data from arguments and initialize data
         if (getArguments() != null && getArguments().containsKey(ARG_STEP_INTRO)) {
             RecipeResponse recipe = (RecipeResponse) getArguments().getSerializable(ARG_STEP_INTRO);
-            mIngredientsList = recipe.getIngredients();
+            mIngredientsList = Objects.requireNonNull(recipe).getIngredients();
         }
     }
 

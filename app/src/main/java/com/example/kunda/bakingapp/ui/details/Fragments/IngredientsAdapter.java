@@ -30,14 +30,14 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
         @BindView(R.id.ingredient_quantity_tv)
         TextView ingredientQuantityTV;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
     }
 
-    private Context mContext;
-    private List<RecipeResponse.Ingredient> mList;
+    private final Context mContext;
+    private final List<RecipeResponse.Ingredient> mList;
 
     /**
      * @param context         the context of the activity

@@ -42,11 +42,11 @@ public class StepListActivity extends AppCompatActivity implements DetailsItemCl
      * device.
      */
     private boolean mTwoPane;
-    public static String RECIPE_KEY = "getThatRecipe";
-    public static String PREF_KEY_INGREDIENTS = "Ingredients list";
-    public static String PREF_KEY_RECIPE_NAME = "Recipe Name";
-    public static String KEY_STEP_NO = "fragment_position_is_saved";
-    public static int DEFAULT_FRAGMENT_STEP_NUMBER = -1;
+    public static final String RECIPE_KEY = "getThatRecipe";
+    public static final String PREF_KEY_INGREDIENTS = "Ingredients list";
+    public static final String PREF_KEY_RECIPE_NAME = "Recipe Name";
+    public static final String KEY_STEP_NO = "fragment_position_is_saved";
+    public static final int DEFAULT_FRAGMENT_STEP_NUMBER = -1;
     RecipeViewModel.RecipeDetails mDetailsViewModel;
     private List<RecipeResponse.Step> mListSteps;
     private Context mContext;
@@ -59,7 +59,7 @@ public class StepListActivity extends AppCompatActivity implements DetailsItemCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_list);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         //The Recipe object passed though intent will be received

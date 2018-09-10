@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="app_bar_height">200dp</dimen>
     <dimen name="item_width">200dp</dimen>
-    <dimen name="text_margin">16dp</dimen>
     <dimen name="recipe_image_width">0dp</dimen>
     <dimen name="recipe_image_height">240dp</dimen>
-    <dimen name="widget_margin">8dp</dimen>
 
     <!-- Dimens for ExoPlayer -->
     <dimen name="exoplayer_width">0dp</dimen>
     <dimen name="exoplayer_height">200dp</dimen>
     <!-- Dimens for ExoPlayer landscape mode-->
-    <dimen name="exoplayer_land_width">0dp</dimen>
-    <dimen name="exoplayer_land_height">0dp</dimen>
     <dimen name="fab_bottom_margin">16dp</dimen>
     <dimen name="fab_end_margin">16dp</dimen>
     <dimen name="nav_button_bottom_margin">16dp</dimen>

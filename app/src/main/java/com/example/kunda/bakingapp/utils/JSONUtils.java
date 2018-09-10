@@ -19,7 +19,7 @@ public class JSONUtils {
      * @return list of Recipe
      */
     public static List<RecipeResponse> getRecipeListFromJSON(JSONArray jsonArray){
-        RecipeResponse[] listRecipe = null;
+        RecipeResponse[] listRecipe;
         Gson gson = new Gson();
         listRecipe = gson.fromJson(jsonArray.toString(),RecipeResponse[].class);
         return Arrays.asList(listRecipe);

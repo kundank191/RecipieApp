@@ -8,7 +8,7 @@ import org.json.JSONArray;
  */
 public interface OnDataReceivedListener {
 
-    public void onResponse(JSONArray response);
+    void onResponse(JSONArray response);
 
-    public void onError(String error);
+    void onError(String error);
 }

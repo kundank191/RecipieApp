@@ -11,11 +11,11 @@ import com.example.kunda.bakingapp.data.RecipeResponse;
  * Created by Kundan on 28-08-2018.
  * This class will be used to populate the list view of the widget
  */
-public class RemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
+class RemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     // Not sure why this intent will be used
-    private Intent intent;
-    private RecipeResponse.Ingredient[] ingredientList;
-    private String packageName;
+    private final Intent intent;
+    private final RecipeResponse.Ingredient[] ingredientList;
+    private final String packageName;
 
     RemoteViewsFactory(Intent intent, RecipeResponse.Ingredient[] ingredientList, String packageName) {
         this.intent = intent;
