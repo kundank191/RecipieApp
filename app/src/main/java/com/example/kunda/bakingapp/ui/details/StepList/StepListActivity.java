@@ -1,6 +1,8 @@
 package com.example.kunda.bakingapp.ui.details.StepList;
 
+import android.appwidget.AppWidgetManager;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,6 +22,7 @@ import com.example.kunda.bakingapp.ui.ViewModelFactory;
 import com.example.kunda.bakingapp.ui.details.Fragments.StepDetailFragment;
 import com.example.kunda.bakingapp.ui.details.Fragments.StepIntroFragment;
 import com.example.kunda.bakingapp.ui.details.StepDetails.StepDetailActivity;
+import com.example.kunda.bakingapp.ui.widget.IngredientWidget;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -162,7 +165,24 @@ public class StepListActivity extends AppCompatActivity implements DetailsItemCl
         prefsEditor.putString(PREF_KEY_INGREDIENTS, ingredientsListJson);
         prefsEditor.putString(PREF_KEY_RECIPE_NAME, mDetailsViewModel.getRecipeName());
         prefsEditor.apply();
+        // update the widget
+        updateWidget();
 
+    }
+
+    /**
+     * Update widget when recipe is opened
+     * got this function from : https://stackoverflow.com/questions/3455123/programmatically-update-widget-from-activity-service-receiver
+     */
+    private void updateWidget() {
+        Intent intent = new Intent(this, IngredientWidget.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        // Use an array and EXTRA_APPWIDGET_IDS instead of AppWidgetManager.EXTRA_APPWIDGET_ID,
+        // since it seems the onUpdate() is only fired on that:
+        int[] ids = AppWidgetManager.getInstance(this)
+                .getAppWidgetIds(new ComponentName(this, IngredientWidget.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+        this.sendBroadcast(intent);
     }
 
     //setup recycler view to show steps
