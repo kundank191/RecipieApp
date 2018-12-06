@@ -9,13 +9,32 @@
     tools:context=".ui.details.Fragments.StepDetailFragment" >
 
     <!-- This layout shows detail of an individual step -->
-    <com.google.android.exoplayer2.ui.PlayerView
-        android:id="@+id/video_player_view"
+    <FrameLayout
+        android:id="@+id/video_player_frame"
         android:layout_width="@dimen/exoplayer_width"
         android:layout_height="@dimen/exoplayer_height"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.exoplayer2.ui.PlayerView
+            android:id="@+id/video_player_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:default_artwork="@drawable/loading_image"
+            app:use_artwork="true"/>
+
+        <!-- update content description dynamically -->
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/video_thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/recipe_step"
+            android:scaleType="centerCrop"
+            android:src="@drawable/loading_image"/>
+
+    </FrameLayout>
 
     <TextView
         android:id="@+id/video_step_description"
@@ -28,5 +47,5 @@
         android:text="@string/description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/video_player_view" />
+        app:layout_constraintTop_toBottomOf="@+id/video_player_frame" />
 </android.support.constraint.ConstraintLayout>

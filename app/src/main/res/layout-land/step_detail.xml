@@ -14,7 +14,9 @@
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:default_artwork="@drawable/loading_image"
+        app:use_artwork="true"/>
 
     <TextView
         android:id="@+id/video_step_description"

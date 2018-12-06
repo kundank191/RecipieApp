@@ -12,4 +12,5 @@
     <string name="error_retrieving_data">Error Retrieving data</string>
     <string name="no_internet_connection">No internet connection</string>
     <string name="loading_delicious_recipes">Loading delicious recipes…</string>
+    <string name="recipe_step">Recipe Step</string>
 </resources>
