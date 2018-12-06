@@ -50,7 +50,7 @@ public class StepDetailFragment extends Fragment {
     TextView mStepDescription;
     private SimpleExoPlayer player;
     @BindView(R.id.video_thumbnail)
-    private ImageView videoThumbnail;
+    ImageView videoThumbnail;
     private long position = 0;
     private Boolean playWhenReady = true;
 
